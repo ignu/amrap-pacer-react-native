@@ -1,0 +1,3 @@
+rootProject.name = 'AMRAPPacer'
+
+include ':app'
