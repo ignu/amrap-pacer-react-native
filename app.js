@@ -2,7 +2,7 @@ import React from 'react';
 import Start from './components/start'
 import Timer from './components/timer'
 import Settings from './components/settings'
-import { Scene, Router } from 'react-native-router-flux';
+import {Router, Scene} from 'react-native-mobx'
 
 const styles = {
   navBar: {

@@ -60,7 +60,8 @@ export default class Timer extends Component {
     this.state = {
       height: 1,
       time: "0:00",
-      count: 0
+      count: 0,
+      backgroundColor: 'green'
     }
 
     const updateTime = () => {
@@ -77,11 +78,17 @@ export default class Timer extends Component {
     this.height = new Animated.Value(1)
   }
 
+  overdue() {
+    this.setState({
+      backgroundColor: 'red'
+    })
+  }
+
   startAnimation() {
     Animated.timing(this.height, {
       toValue: deviceHeight,
-      duration: 20000
-    }).start()
+      duration: 1500
+    }).start(this.overdue.bind(this))
   }
 
   componentDidMount() {
@@ -94,12 +101,13 @@ export default class Timer extends Component {
     this.startAnimation()
     this.coach.recordRound()
     this.setState({
-      count: this.coach.roundCount()
+      count: this.coach.roundCount(),
+      backgroundColor: 'green'
     })
   }
 
   render() {
-    const style = { zIndex: 1, height: this.height, top: 0, width: deviceWidth, backgroundColor: 'green'}
+    const style = { zIndex: 1, height: this.height, top: 0, width: deviceWidth, backgroundColor: this.state.backgroundColor}
 
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
