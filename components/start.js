@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, StatusBar, Text, TouchableOpacity } from 'react-native'
 import {Actions} from 'react-native-router-flux'
 
 const styles = {
@@ -27,6 +27,7 @@ class Start extends React.Component  {
   render() {
     return(
       <View style={styles.layout}>
+        <StatusBar hidden />
 
         <TouchableOpacity onPress={this.start}>
           <View><Text style={styles.start}>Start</Text></View>

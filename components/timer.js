@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 import {
   Animated,
+  TouchableOpacity,
   StyleSheet,
   Dimensions,
   Text,
-  View
+  View,
 } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width
 const deviceHeight = Dimensions.get('window').height
+import Coach from '../lib/coach'
 
 const styles = StyleSheet.create({
   container: {
@@ -45,9 +47,20 @@ export default class Timer extends Component {
   constructor(props) {
     super(props)
 
+    this.coach = new Coach()
+    this.coach.start()
+
     this.state = {
-      height: 1
+      height: 1,
+      time: "0:00",
+      count: 0
     }
+
+    const updateTime = () => {
+      this.setState({time: this.coach.elapsedSeconds})
+    }
+
+    setInterval(updateTime.bind(this), 500)
   }
 
   componentWillMount() {
@@ -61,6 +74,13 @@ export default class Timer extends Component {
     }).start()
   }
 
+  increment() {
+    this.coach.recordRound()
+    this.setState({
+      count: this.coach.roundCount
+    })
+  }
+
   render() {
     const style = { zIndex: 1, height: this.height, top: 0, width: deviceWidth, backgroundColor: 'green'}
 
@@ -72,7 +92,11 @@ export default class Timer extends Component {
         </View>
 
         <View style={styles.numberWrapper}>
-          <Text style={{fontSize: 180, color: '#FFF'}}> 0 </Text>
+          <TouchableOpacity onPress={this.increment.bind(this)}>
+            <Text style={{fontSize: 180, color: '#FFF'}}>{this.state.count}</Text>
+          </TouchableOpacity>
+
+          <Text style={{fontSize: 90, color: '#FFF'}}>{this.state.time}</Text>
         </View>
       </View>
     );
