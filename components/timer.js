@@ -11,6 +11,7 @@ import {
 
 const deviceWidth = Dimensions.get('window').width
 const deviceHeight = Dimensions.get('window').height
+
 import Coach from '../lib/coach'
 
 const styles = StyleSheet.create({
@@ -24,10 +25,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: deviceHeight,
     paddingLeft: (deviceWidth/2) - 50,
-    borderColor: 'purple',
-    borderWidth: 2,
     justifyContent: 'center',
-    borderStyle: 'dotted',
     backgroundColor: 'rgba(52,52,52,0)',
     width: deviceWidth
   },
@@ -43,6 +41,15 @@ const styles = StyleSheet.create({
   },
 });
 
+
+const t = (seconds) => {
+  const minutes = Math.round(seconds/60, 0)
+  let remains = `${seconds % 60}`
+  if(remains.length < 2) remains = `0${remains}`
+
+  return `${minutes}:${remains}`
+}
+
 export default class Timer extends Component {
   constructor(props) {
     super(props)
@@ -57,27 +64,37 @@ export default class Timer extends Component {
     }
 
     const updateTime = () => {
-      this.setState({time: this.coach.elapsedSeconds})
+      this.setState({
+        time: t(this.coach.elapsedSeconds()),
+        remaining: t(this.coach.remainingTime())
+      })
     }
 
-    setInterval(updateTime.bind(this), 500)
+    setInterval(updateTime.bind(this), 90)
   }
 
   componentWillMount() {
     this.height = new Animated.Value(1)
   }
 
-  componentDidMount() {
+  startAnimation() {
     Animated.timing(this.height, {
       toValue: deviceHeight,
       duration: 20000
     }).start()
   }
 
+  componentDidMount() {
+    this.startAnimation()
+  }
+
   increment() {
+    this.height.stopAnimation()
+    this.height = new Animated.Value(1)
+    this.startAnimation()
     this.coach.recordRound()
     this.setState({
-      count: this.coach.roundCount
+      count: this.coach.roundCount()
     })
   }
 
@@ -87,16 +104,17 @@ export default class Timer extends Component {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
         <View style={{zIndex: 0, top: 0, backgroundColor: 'black', height: deviceHeight}}>
-          <Animated.View View ref="progress" style={style}>
+          <Animated.View ref="progress" style={style}>
           </Animated.View>
         </View>
 
         <View style={styles.numberWrapper}>
           <TouchableOpacity onPress={this.increment.bind(this)}>
-            <Text style={{fontSize: 180, color: '#FFF'}}>{this.state.count}</Text>
+            <Text style={{fontSize: 160, color: '#FFF'}}>{this.state.count}</Text>
           </TouchableOpacity>
 
-          <Text style={{fontSize: 90, color: '#FFF'}}>{this.state.time}</Text>
+          <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.time}</Text>
+          <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.remaining}</Text>
         </View>
       </View>
     );
