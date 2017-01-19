@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+/* @flow weak */
+import React, { Component } from 'react'
 
 import {
   Animated,
@@ -7,7 +8,7 @@ import {
   Dimensions,
   Text,
   View,
-} from 'react-native';
+} from 'react-native'
 
 const deviceWidth = Dimensions.get('window').width
 const deviceHeight = Dimensions.get('window').height
@@ -50,8 +51,20 @@ const t = (seconds) => {
   return `${minutes}:${remains}`
 }
 
+type TimerState = {
+  height: number,
+  time: string,
+  count: number,
+  backgroundColor: string,
+  remaining: string
+}
+
 export default class Timer extends Component {
-  constructor(props) {
+  coach: Coach
+  state: TimerState
+  height: any
+
+  constructor(props: Object) {
     super(props)
 
     this.coach = new Coach()
@@ -61,7 +74,8 @@ export default class Timer extends Component {
       height: 1,
       time: "0:00",
       count: 0,
-      backgroundColor: 'green'
+      backgroundColor: 'green',
+      remaining: ''
     }
 
     const updateTime = () => {

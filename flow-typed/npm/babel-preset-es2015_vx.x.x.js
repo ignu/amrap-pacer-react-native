@@ -12,7 +12,6 @@
  * community by sending a pull request to: 
  * https://github.com/flowtype/flow-typed
  */
-
 declare module 'babel-preset-es2015' {
   declare module.exports: any;
 }
