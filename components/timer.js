@@ -1,47 +1,20 @@
-/* @flow weak */
+/* @flow  */
 import React, { Component } from 'react'
 
 import {
   Animated,
   TouchableOpacity,
-  StyleSheet,
   Dimensions,
   Text,
   View,
 } from 'react-native'
 
+import styles from './styles'
+
 const deviceWidth = Dimensions.get('window').width
 const deviceHeight = Dimensions.get('window').height
 
 import Coach from '../lib/coach'
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#F5FCFF',
-  },
-  numberWrapper: {
-    zIndex: 10,
-    top: 0,
-    left: 0,
-    position: 'absolute',
-    height: deviceHeight,
-    paddingLeft: (deviceWidth/2) - 50,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(52,52,52,0)',
-    width: deviceWidth
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
 
 const t = (seconds) => {
   const minutes = Math.round(seconds/60, 0)
@@ -55,6 +28,7 @@ type TimerState = {
   height: number,
   time: string,
   count: number,
+  average: string,
   backgroundColor: string,
   remaining: string
 }
@@ -74,14 +48,17 @@ export default class Timer extends Component {
       height: 1,
       time: "0:00",
       count: 0,
+      average: '',
       backgroundColor: 'green',
       remaining: ''
     }
 
     const updateTime = () => {
+      console.log('this.coach.remainingTime()', this.coach.remainingTime())
       this.setState({
         time: t(this.coach.elapsedSeconds()),
-        remaining: t(this.coach.remainingTime())
+        remaining: t(this.coach.remainingTime()),
+        average: t(this.coach.average())
       })
     }
 
@@ -136,6 +113,7 @@ export default class Timer extends Component {
           </TouchableOpacity>
 
           <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.time}</Text>
+        <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.average}</Text>
           <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.remaining}</Text>
         </View>
       </View>
