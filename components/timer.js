@@ -17,11 +17,22 @@ const deviceHeight = Dimensions.get('window').height
 import Coach from '../lib/coach'
 
 const t = (seconds) => {
-  const minutes = Math.round(seconds/60, 0)
-  let remains = `${seconds % 60}`
-  if(remains.length < 2) remains = `0${remains}`
+  seconds = Math.round(seconds)
 
-  return `${minutes}:${remains}`
+  let neg = ''
+
+  if (seconds < 0) {
+    neg = '-'
+    seconds = Math.abs(seconds)
+  }
+
+  const minutes = Math.round(seconds/60, 0)
+  let remainder = seconds % 60
+  let remainderString = `${remainder}`
+
+  if(remainder < 10) remainderString = `0${remainder}`
+
+  return `${neg}${minutes}:${remainderString}`
 }
 
 type TimerState = {
@@ -54,7 +65,6 @@ export default class Timer extends Component {
     }
 
     const updateTime = () => {
-      console.log('this.coach.remainingTime()', this.coach.remainingTime())
       this.setState({
         time: t(this.coach.elapsedSeconds()),
         remaining: t(this.coach.remainingTime()),
@@ -76,9 +86,11 @@ export default class Timer extends Component {
   }
 
   startAnimation() {
+    if (this.coach.roundCount() < 1) return
+
     Animated.timing(this.height, {
       toValue: deviceHeight,
-      duration: 1500
+      duration: this.coach.roundGoal() * 1000
     }).start(this.overdue.bind(this))
   }
 
@@ -89,32 +101,64 @@ export default class Timer extends Component {
   increment() {
     this.height.stopAnimation()
     this.height = new Animated.Value(1)
-    this.startAnimation()
     this.coach.recordRound()
+    this.startAnimation()
     this.setState({
       count: this.coach.roundCount(),
       backgroundColor: 'green'
     })
   }
 
+  renderRemaining() {
+    if (this.state.count < 1) return null
+
+    return(
+      <View style={{borderWidth: 1, borderColor: "blue"}}>
+        <Text style={{fontSize: 30, color: '#FFF'}}>
+          Remaining: {this.state.remaining}
+        </Text>
+      </View>
+    )
+  }
+
+  renderAverage() {
+    if (this.state.count < 1) return null
+
+    return(
+      <View>
+        <Text style={{fontSize: 30, color: '#FFF'}}>
+          Average: {this.state.average}
+        </Text>
+      </View>
+    )
+  }
+
   render() {
     const style = { zIndex: 1, height: this.height, top: 0, width: deviceWidth, backgroundColor: this.state.backgroundColor}
 
     return (
-      <View style={{flex: 1, alignItems: 'center'}}>
-        <View style={{zIndex: 0, top: 0, backgroundColor: 'black', height: deviceHeight}}>
+      <View style={styles.timerWrapper}>
+        <View style={styles.timerBackground}>
           <Animated.View ref="progress" style={style}>
           </Animated.View>
         </View>
 
         <View style={styles.numberWrapper}>
-          <TouchableOpacity onPress={this.increment.bind(this)}>
-            <Text style={{fontSize: 160, color: '#FFF'}}>{this.state.count}</Text>
-          </TouchableOpacity>
+          <View style={styles.countWrapper}>
+            <TouchableOpacity onPress={this.increment.bind(this)}>
+              <Text style={{fontSize: 160, color: '#FFF'}}>{this.state.count}</Text>
+            </TouchableOpacity>
+          </View>
 
-          <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.time}</Text>
-        <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.average}</Text>
-          <Text style={{fontSize: 40, color: '#FFF'}}>{this.state.remaining}</Text>
+          <View style={styles.currentTimeWrapper}>
+            <Text style={{fontSize: 80, color: '#FFF'}}>{this.state.time}</Text>
+          </View>
+
+          <View style={styles.stats}>
+            { this.renderAverage() }
+
+            { this.renderRemaining() }
+          </View>
         </View>
       </View>
     );
