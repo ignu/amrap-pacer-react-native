@@ -1,39 +1,39 @@
 /* @flow  */
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 import {
   Animated,
   TouchableOpacity,
   Dimensions,
   Text,
-  View,
-} from 'react-native'
+  View
+} from "react-native";
 
-import styles from './styles'
+import styles from "./styles";
 
-const deviceWidth = Dimensions.get('window').width
-const deviceHeight = Dimensions.get('window').height
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
 
-import Coach from '../lib/coach'
+import Coach from "../lib/coach";
 
-const t = (seconds) => {
-  seconds = Math.round(seconds)
+const t = seconds => {
+  seconds = Math.round(seconds);
 
-  let neg = ''
+  let neg = "";
 
   if (seconds < 0) {
-    neg = '-'
-    seconds = Math.abs(seconds)
+    neg = "-";
+    seconds = Math.abs(seconds);
   }
 
-  const minutes = Math.round(seconds/60, 0)
-  let remainder = seconds % 60
-  let remainderString = `${remainder}`
+  const minutes = Math.round(seconds / 60, 0);
+  let remainder = seconds % 60;
+  let remainderString = `${remainder}`;
 
-  if(remainder < 10) remainderString = `0${remainder}`
+  if (remainder < 10) remainderString = `0${remainder}`;
 
-  return `${neg}${minutes}:${remainderString}`
-}
+  return `${neg}${minutes}:${remainderString}`;
+};
 
 type TimerState = {
   height: number,
@@ -42,122 +42,131 @@ type TimerState = {
   average: string,
   backgroundColor: string,
   remaining: string
-}
+};
 
 export default class Timer extends Component {
-  coach: Coach
-  state: TimerState
-  height: any
+  coach: Coach;
+  state: TimerState;
+  height: any;
 
   constructor(props: Object) {
-    super(props)
+    super(props);
 
-    this.coach = new Coach()
-    this.coach.start()
+    this.coach = new Coach();
+    this.coach.start();
 
     this.state = {
       height: 1,
       time: "0:00",
       count: 0,
-      average: '',
-      backgroundColor: 'green',
-      remaining: ''
-    }
+      average: "",
+      backgroundColor: "green",
+      remaining: ""
+    };
 
     const updateTime = () => {
       this.setState({
         time: t(this.coach.elapsedSeconds()),
         remaining: t(this.coach.remainingTime()),
         average: t(this.coach.average())
-      })
-    }
+      });
+    };
 
-    setInterval(updateTime.bind(this), 90)
+    setInterval(updateTime.bind(this), 90);
   }
 
   componentWillMount() {
-    this.height = new Animated.Value(1)
+    this.height = new Animated.Value(1);
   }
 
   overdue() {
     this.setState({
-      backgroundColor: 'red'
-    })
+      backgroundColor: "red"
+    });
   }
 
   startAnimation() {
-    if (this.coach.roundCount() < 1) return
+    if (this.coach.roundCount() < 1) return;
 
     Animated.timing(this.height, {
       toValue: deviceHeight,
       duration: this.coach.roundGoal() * 1000
-    }).start(this.overdue.bind(this))
+    }).start(this.overdue.bind(this));
   }
 
   componentDidMount() {
-    this.startAnimation()
+    this.startAnimation();
   }
 
   increment() {
-    this.height.stopAnimation()
-    this.height = new Animated.Value(1)
-    this.coach.recordRound()
-    this.startAnimation()
+    this.height.stopAnimation();
+    this.height = new Animated.Value(1);
+    this.coach.recordRound();
+    this.startAnimation();
     this.setState({
       count: this.coach.roundCount(),
-      backgroundColor: 'green'
-    })
+      backgroundColor: "green"
+    });
   }
 
   renderRemaining() {
-    if (this.state.count < 1) return null
+    if (this.state.count < 1) return null;
 
-    return(
-      <View style={{borderWidth: 1, borderColor: "blue"}}>
-        <Text style={{fontSize: 30, color: '#FFF'}}>
+    return (
+      <View style={{ borderWidth: 1, borderColor: "blue" }}>
+        <Text style={{ fontSize: 30, color: "#FFF" }}>
           Remaining: {this.state.remaining}
         </Text>
       </View>
-    )
+    );
   }
 
   renderAverage() {
-    if (this.state.count < 1) return null
+    if (this.state.count < 1) return null;
 
-    return(
+    return (
       <View>
-        <Text style={{fontSize: 30, color: '#FFF'}}>
+        <Text style={{ fontSize: 30, color: "#FFF" }}>
           Average: {this.state.average}
         </Text>
       </View>
-    )
+    );
   }
 
   render() {
-    const style = { zIndex: 1, height: this.height, top: 0, width: deviceWidth, backgroundColor: this.state.backgroundColor}
+    const style = {
+      zIndex: 1,
+      height: this.height,
+      top: 0,
+      width: deviceWidth,
+      backgroundColor: this.state.backgroundColor
+    };
 
     return (
       <View style={styles.timerWrapper}>
         <View style={styles.timerBackground}>
-          <Animated.View ref="progress" style={style}>
-          </Animated.View>
+          <Animated.View ref="progress" style={style} />
         </View>
 
         <View style={styles.numberWrapper}>
           <View style={styles.countWrapper}>
             <TouchableOpacity onPress={this.increment.bind(this)}>
-              <Text style={{fontSize: 160, color: '#FFF'}}>{this.state.count}</Text>
+              <Text style={{ fontSize: 160, color: "#FFF" }}>
+                {this.state.count}
+              </Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.currentTimeWrapper}>
-            <Text style={{fontSize: 80, color: '#FFF'}}>{this.state.time}</Text>
+            <Text style={{ fontSize: 80, color: "#FFF" }}>
+              {this.state.time}
+            </Text>
           </View>
 
           <View style={styles.stats}>
-            { this.renderAverage() }
+            {this.renderAverage()}
 
-            { this.renderRemaining() }
+            {this.renderRemaining()}
           </View>
         </View>
       </View>
