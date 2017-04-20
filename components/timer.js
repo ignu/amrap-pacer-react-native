@@ -113,8 +113,8 @@ export default class Timer extends Component {
     if (this.state.count < 1) return null;
 
     return (
-      <View style={{ borderWidth: 1, borderColor: "blue" }}>
-        <Text style={{ fontSize: 30, color: "#FFF" }}>
+      <View>
+        <Text style={styles.detailsText}>
           Remaining: {this.state.remaining}
         </Text>
       </View>
@@ -126,7 +126,7 @@ export default class Timer extends Component {
 
     return (
       <View>
-        <Text style={{ fontSize: 30, color: "#FFF" }}>
+        <Text style={styles.detailsText}>
           Average: {this.state.average}
         </Text>
       </View>
@@ -151,14 +151,14 @@ export default class Timer extends Component {
         <View style={styles.numberWrapper}>
           <View style={styles.countWrapper}>
             <TouchableOpacity onPress={this.increment.bind(this)}>
-              <Text style={{ fontSize: 160, color: "#FFF" }}>
+              <Text style={styles.counterText}>
                 {this.state.count}
               </Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.currentTimeWrapper}>
-            <Text style={{ fontSize: 80, color: "#FFF" }}>
+            <Text style={styles.currentTimeText}>
               {this.state.time}
             </Text>
           </View>

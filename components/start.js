@@ -1,31 +1,31 @@
-import React from 'react'
-import { View, StatusBar, Text, TouchableOpacity } from 'react-native'
-import {Actions} from 'react-native-router-flux'
+import React from "react";
+import { View, StatusBar, Text, TouchableOpacity } from "react-native";
+import { Actions } from "react-native-router-flux";
 
 const styles = {
   layout: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 30
   },
   start: {
-    fontSize: 100,
+    fontSize: 100
   }
-}
+};
 
-class Start extends React.Component  {
-  start () {
-    Actions.timer()
+class Start extends React.Component {
+  start() {
+    Actions.timer();
   }
 
-  settings () {
-    Actions.settings({cool: 1})
+  settings() {
+    Actions.settings({ cool: 1 });
   }
 
   render() {
-    return(
+    return (
       <View style={styles.layout}>
         <StatusBar hidden />
 
@@ -37,8 +37,8 @@ class Start extends React.Component  {
           <Text>Options</Text>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 }
 
-export default Start
+export default Start;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TextInput } from 'react-native'
 
 const Settings = (props) => {
   console.log('props', props)
@@ -7,6 +7,7 @@ const Settings = (props) => {
   return(
     <View>
       <Text>Settings</Text>
+      <TextInput/>
     </View>
   )
 }

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   timerWrapper: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center"
   },
   timerBackground: {
@@ -20,19 +20,27 @@ const styles = StyleSheet.create({
     height: deviceHeight
   },
   countWrapper: {
-    flex: 1,
-    borderWidth: 2,
-    borderColor: "pink"
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  counterText: {
+    fontSize: 160,
+    color: "#FFF",
+    textAlign: "center"
   },
   currentTimeWrapper: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: "purple"
+    textAlign: "center",
+    justifyContent: "center"
+  },
+  currentTimeText: {
+    textAlign: "center",
+    fontSize: 80,
+    color: "#FFF"
   },
   stats: {
-    flex: 1,
-    borderWidth: 2,
-    borderColor: "white"
+    flex: 1
   },
   numberWrapper: {
     backgroundColor: "rgba(52,52,52,0)",
@@ -50,6 +58,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     margin: 10
+  },
+  detailsText: {
+    fontSize: 30,
+    textAlign: "center",
+    color: "#FFF"
+
   },
   instructions: {
     textAlign: "center",
