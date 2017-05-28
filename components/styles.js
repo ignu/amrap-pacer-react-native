@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   currentTimeWrapper: {
     flex: 1,
-    textAlign: "center",
     justifyContent: "center"
   },
   currentTimeText: {
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     color: "#FFF"
-
   },
   instructions: {
     textAlign: "center",
