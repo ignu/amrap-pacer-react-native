@@ -1,15 +1,46 @@
-import React from 'react'
-import { View, Text, TextInput } from 'react-native'
+import React from "react";
+import { View, Text, TextInput } from "react-native";
 
-const Settings = (props) => {
-  console.log('props', props)
+const styles = {
+  settingsScreen: {
+    flex: 1
+  },
+  titleWrapper: {
+    flex: 1
+  },
+  titleText: {
+    fontSize: 40
+  },
+  formWrapper: {
+    flex: 5,
+    backgroundColor: "#EEE"
+  }
+};
 
-  return(
-    <View>
-      <Text>Settings</Text>
-      <TextInput/>
+const Settings = props => {
+  console.log("props", props);
+
+  return (
+    <View style={styles.settingsScreen}>
+      <View style={styles.titleWrapper}>
+        <Text style={styles.titleText}>Settings</Text>
+      </View>
+
+      <View style={styles.formWrapper}>
+        <TextInput
+          ref="goal"
+          placeholder="Goal"
+          clearButtonMode="while-editing"
+        />
+
+        <TextInput
+          ref="time"
+          placeholder="Time"
+          clearButtonMode="while-editing"
+        />
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;
