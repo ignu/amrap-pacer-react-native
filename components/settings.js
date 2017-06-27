@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
+import { Dimensions, StyleSheet } from 'react-native'
+const deviceWidth = Dimensions.get('window').width
 
 const styles = {
   settingsScreen: {
