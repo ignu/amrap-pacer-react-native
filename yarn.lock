@@ -3100,7 +3100,43 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-native:
+react-native-experimental-navigation@0.26.x:
+  version "0.26.10"
+  resolved "https://registry.yarnpkg.com/react-native-experimental-navigation/-/react-native-experimental-navigation-0.26.10.tgz#355e37929a2bfb84088dca331f34bc575297df68"
+  dependencies:
+    babel-plugin-syntax-flow "^6.8.0"
+    babel-plugin-transform-flow-strip-types "^6.8.0"
+    babel-preset-react-native "^1.9.0"
+    clamp "^1.0.1"
+    fbjs "^0.8.1"
+    react-addons-pure-render-mixin "^15.0.2"
+
+react-native-mobx@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-mobx/-/react-native-mobx-0.3.1.tgz#28f6564825b9e9ffff3865ea72c4f247ebe9d1cf"
+  dependencies:
+    mobx "^2.2.0"
+    mobx-react "^3.3.0"
+    react-native-router-flux "^3.31.2"
+
+react-native-router-flux, react-native-router-flux@^3.31.2:
+  version "3.37.0"
+  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-3.37.0.tgz#18e8fd3e1e6dbdc4d8340cd47313c28bb9bb1caf"
+  dependencies:
+    react-addons-pure-render-mixin "15.0.2"
+    react-native-experimental-navigation "0.26.x"
+    react-native-tabs "^1.0.9"
+    react-static-container "1.0.1"
+
+react-native-settings-list@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-settings-list/-/react-native-settings-list-1.4.0.tgz#75533e72e109ea478f9abd9cc491703970153a5b"
+
+react-native-tabs@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-tabs/-/react-native-tabs-1.0.9.tgz#75d3c35e8b5b6970869eab282372cb32e2a782cd"
+
+react-native@^0.39.2:
   version "0.39.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.39.2.tgz#c73ed67ff25ea8e31643ac6ef2d60a88f26d12c1"
   dependencies:
@@ -3178,42 +3214,6 @@ react-native:
     xcode "^0.8.9"
     xmldoc "^0.4.0"
     yargs "^6.4.0"
-
-react-native-experimental-navigation@0.26.x:
-  version "0.26.10"
-  resolved "https://registry.yarnpkg.com/react-native-experimental-navigation/-/react-native-experimental-navigation-0.26.10.tgz#355e37929a2bfb84088dca331f34bc575297df68"
-  dependencies:
-    babel-plugin-syntax-flow "^6.8.0"
-    babel-plugin-transform-flow-strip-types "^6.8.0"
-    babel-preset-react-native "^1.9.0"
-    clamp "^1.0.1"
-    fbjs "^0.8.1"
-    react-addons-pure-render-mixin "^15.0.2"
-
-react-native-mobx@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-mobx/-/react-native-mobx-0.3.1.tgz#28f6564825b9e9ffff3865ea72c4f247ebe9d1cf"
-  dependencies:
-    mobx "^2.2.0"
-    mobx-react "^3.3.0"
-    react-native-router-flux "^3.31.2"
-
-react-native-router-flux, react-native-router-flux@^3.31.2:
-  version "3.37.0"
-  resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-3.37.0.tgz#18e8fd3e1e6dbdc4d8340cd47313c28bb9bb1caf"
-  dependencies:
-    react-addons-pure-render-mixin "15.0.2"
-    react-native-experimental-navigation "0.26.x"
-    react-native-tabs "^1.0.9"
-    react-static-container "1.0.1"
-
-react-native-settings-list@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-settings-list/-/react-native-settings-list-1.4.0.tgz#75533e72e109ea478f9abd9cc491703970153a5b"
-
-react-native-tabs@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/react-native-tabs/-/react-native-tabs-1.0.9.tgz#75d3c35e8b5b6970869eab282372cb32e2a782cd"
 
 react-proxy@^1.1.7:
   version "1.1.8"
