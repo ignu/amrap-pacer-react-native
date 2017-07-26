@@ -55,7 +55,6 @@ const Settings = props => {
             style={styles.input}
             editable={true}
             maxLength={3}
-            ref="goal"
             keyboardType="numeric"
             placeholder="12"
             clearTextOnFocus={true}
@@ -69,7 +68,6 @@ const Settings = props => {
             style={styles.input}
             maxLength={3}
             editable={true}
-            ref="minutes"
             placeholder="20"
             keyboardType="numeric"
             clearTextOnFocus={true}
