@@ -72,11 +72,15 @@ export default class Timer extends Component {
       });
     };
 
-    setInterval(updateTime.bind(this), 90);
+    this.interval = setInterval(updateTime.bind(this), 90);
   }
 
   componentWillMount() {
     this.height = new Animated.Value(1);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   overdue() {
