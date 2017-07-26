@@ -20,8 +20,8 @@ class App extends React.Component {
     return (
       <Router navBarStyle={styles.navBar}>
         <Scene key="timer" component={Timer} hideNavBar />
-        <Scene key="start" component={Start} hideNavBar />
-        <Scene key="settings" component={Settings} initial title="Settings" />
+        <Scene key="start" component={Start} initial hideNavBar />
+        <Scene key="settings" component={Settings} title="Seattings" />
       </Router>
     );
   }

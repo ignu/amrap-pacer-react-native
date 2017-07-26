@@ -41,7 +41,6 @@ const styles = {
 };
 
 const Settings = props => {
-  console.log("props", props);
   return (
     <View style={styles.settingsScreen}>
       <View style={styles.titleWrapper}>
@@ -58,7 +57,7 @@ const Settings = props => {
             maxLength={3}
             ref="goal"
             keyboardType="numeric"
-            placeholder="0"
+            placeholder="12"
             clearTextOnFocus={true}
           />
         </View>
@@ -71,7 +70,8 @@ const Settings = props => {
             maxLength={3}
             editable={true}
             ref="minutes"
-            placeholder="Minutes"
+            placeholder="20"
+            keyboardType="numeric"
             clearTextOnFocus={true}
           />
         </View>
