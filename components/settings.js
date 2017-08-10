@@ -1,81 +1,62 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
-import { Dimensions, StyleSheet } from 'react-native'
-const deviceWidth = Dimensions.get('window').width
+import { View, Text } from "react-native";
+// import { Dimensions, StyleSheet } from 'react-native'
+// const deviceWidth = Dimensions.get('window').width
+import {GiftedForm} from 'react-native-gifted-form'
+import {observer, inject} from "mobx-react";
 
-const styles = {
-  settingsScreen: {
-    flex: 1
-  },
-  titleWrapper: {
-    flex: 1,
-    alignItems: "center",
-    padding: 9
-  },
-  titleText: {
-    fontSize: 39
-  },
-  formWrapper: {
-    flex: 5,
-    backgroundColor: "#EEE"
-  },
-  formSection: {
-    borderWidth: 1,
-    height: 100,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingLeft: 14,
-    paddingRight: 14,
-    marginBottom: 1
-  },
-  input: {
-    marginTop: 10,
-    padding: 5,
-    height: 50,
-    width: 80,
-    color: "#000"
+@inject("coach") @observer
+@inject("settings") @observer
+export default class Settings extends React.Component {
+  render() {
+    const { coach, settings } = this.props
+
+    return (
+        <GiftedForm formName='signupForm'>
+
+          <GiftedForm.SeparatorWidget />
+
+          <GiftedForm.TextInputWidget
+            name='goal'
+            title='Goal'
+            placeholder='18'
+            clearButtonMode='while-editing'
+            value={coach.goal}
+            onTextInputBlur={(v) => coach.goal = v}
+          />
+
+          <GiftedForm.TextInputWidget
+            name='minutes'
+            title='Minutes'
+            placeholder='20'
+            clearButtonMode='while-editing'
+            value={coach.minutes}
+            onTextInputBlur={(v) => coach.minutes = v}
+          />
+
+          <GiftedForm.NoticeWidget
+            title="The progress bar will update to keep you on track to this goal. Leave these blank to set the round's goal based on your current average."
+          />
+
+          <GiftedForm.SeparatorWidget />
+
+          <GiftedForm.SwitchWidget
+            name='showTimer'
+            title='Show Timer'
+            value={settings.showTimer}
+            onChange={(v) => settings.showTimer = v}
+          />
+
+          <GiftedForm.SeparatorWidget />
+
+          <GiftedForm.SwitchWidget
+            name='beepWhenDone'
+            title='Beep When Done'
+            value={settings.beepWhenDone}
+            onChange={(v) => settings.beepWhenDone = v}
+          />
+
+        </GiftedForm>
+    );
   }
-};
-
-const Settings = props => {
-  return (
-    <View style={styles.settingsScreen}>
-      <View style={styles.titleWrapper}>
-        <Text style={styles.titleText}>Settings</Text>
-      </View>
-
-      <View style={styles.formWrapper}>
-        <View style={styles.formSection}>
-          <Text>Goal</Text>
-
-          <TextInput
-            style={styles.input}
-            editable={true}
-            maxLength={3}
-            keyboardType="numeric"
-            placeholder="12"
-            clearTextOnFocus={true}
-          />
-        </View>
-
-        <View style={styles.formSection}>
-          <Text>Minutes</Text>
-
-          <TextInput
-            style={styles.input}
-            maxLength={3}
-            editable={true}
-            placeholder="20"
-            keyboardType="numeric"
-            clearTextOnFocus={true}
-          />
-        </View>
-      </View>
-    </View>
-  );
-};
-
-export default Settings;
+}

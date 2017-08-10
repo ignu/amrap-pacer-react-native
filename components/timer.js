@@ -1,5 +1,6 @@
 /* @flow  */
 import React, { Component } from "react";
+import {observer, inject} from "mobx-react";
 
 import {
   Animated,
@@ -13,8 +14,6 @@ import styles from "./styles";
 
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
-
-import Coach from "../lib/coach";
 
 const t = seconds => {
   seconds = Math.round(seconds);
@@ -44,6 +43,8 @@ type TimerState = {
   remaining: string
 };
 
+@inject("settings") @observer
+@inject("coach") @observer
 export default class Timer extends Component {
   coach: Coach;
   state: TimerState;
@@ -52,7 +53,7 @@ export default class Timer extends Component {
   constructor(props: Object) {
     super(props);
 
-    this.coach = new Coach();
+    this.coach = props.coach
     this.coach.start();
 
     this.state = {
@@ -161,11 +162,11 @@ export default class Timer extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.currentTimeWrapper}>
+          { this.props.showTimer && <View style={styles.currentTimeWrapper}>
             <Text style={styles.currentTimeText}>
               {this.state.time}
             </Text>
-          </View>
+          </View> }
 
           <View style={styles.stats}>
             {this.renderAverage()}

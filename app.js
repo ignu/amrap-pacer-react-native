@@ -6,6 +6,8 @@ import Start from "./components/start";
 import Timer from "./components/timer";
 import Settings from "./components/settings";
 
+import {Provider} from 'mobx-react'
+import Coach from './lib/coach';
 
 const styles = {
   navBar: {
@@ -18,16 +20,28 @@ const styles = {
   }
 };
 
+const defaultSettings = {
+  beepWhenDone:false,
+  showTimer: true
+}
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.coach = new Coach
+  }
+
   render() {
     return (
-      <Router navBarStyle={styles.navBar}>
-        <Scene key="root">
-          <Scene key="timer" component={Timer} hideNavBar />
-          <Scene key="start" component={Start} initial hideNavBar />
-          <Scene key="settings" component={Settings} title="Seattings" />
-        </Scene>
-      </Router>
+      <Provider coach={this.coach} settings={defaultSettings}>
+        <Router navBarStyle={styles.navBar}>
+          <Scene key="root">
+            <Scene key="timer" component={Timer} hideNavBar />
+            <Scene key="start" component={Start} initial hideNavBar />
+            <Scene key="settings" component={Settings} title="Settings" />
+          </Scene>
+        </Router>
+      </Provider>
     );
   }
 }
