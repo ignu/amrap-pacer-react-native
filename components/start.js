@@ -21,7 +21,7 @@ class Start extends React.Component {
   }
 
   settings() {
-    Actions.settings({ cool: 1 });
+    Actions.settings();
   }
 
   render() {
