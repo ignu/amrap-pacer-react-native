@@ -1,7 +1,5 @@
 import React from "react";
 import { View, Text } from "react-native";
-// import { Dimensions, StyleSheet } from 'react-native'
-// const deviceWidth = Dimensions.get('window').width
 import {GiftedForm} from 'react-native-gifted-form'
 import {observer, inject} from "mobx-react";
 

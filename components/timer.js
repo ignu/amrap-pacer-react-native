@@ -90,8 +90,9 @@ export default class Timer extends Component {
     });
   }
 
+
   startAnimation() {
-    if (this.coach.roundCount() < 1) return;
+    if (!this.coach.hasGoal()) return;
 
     Animated.timing(this.height, {
       toValue: deviceHeight,
